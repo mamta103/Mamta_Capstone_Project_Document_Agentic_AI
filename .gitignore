@@ -1,0 +1,25 @@
+# Environment and secrets
+.env
+.streamlit/secrets.toml
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Runtime data
+chroma_db/
+vectordb/*
+!vectordb/README.md
+vectordb_api/
+
+# Course material kept outside the repository
+/*.pdf
+
+# IDE / OS
+.vscode/
+.idea/
+*.iml
+Thumbs.db
+.DS_Store

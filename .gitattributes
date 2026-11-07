@@ -1,0 +1,7 @@
+# Normalise text files, but never touch binary files (PDF line endings must stay as-is).
+* text=auto
+*.pdf binary
+*.xlsx binary
+*.docx binary
+*.png binary
+*.jpg binary

@@ -1,0 +1,38 @@
+Acme Inventory Service - Installation and Configuration Guide
+
+1. Overview
+The Acme Inventory Service is a REST API that manages product stock levels.
+It runs as a Windows service or a Linux systemd unit and listens on port 8080 by default.
+
+2. Prerequisites
+- Java 21 runtime
+- PostgreSQL 16 database
+- At least 2 GB of free memory
+
+3. Installation
+Step 1: Download the installer package acme-inventory-setup.zip.
+Step 2: Extract the archive to C:\Acme\Inventory.
+Step 3: Run install-service.bat as Administrator.
+Step 4: Verify the service is running with: sc query AcmeInventory
+
+4. Configuration
+All settings are stored in config/application.properties.
+- server.port: HTTP port (default 8080)
+- db.url: JDBC URL of the PostgreSQL database
+- auth.mode: either "token" or "ldap" (default "token")
+- session.timeout.minutes: session idle timeout (default 30)
+
+5. Authentication
+Users authenticate by calling POST /api/v1/session with a username and password.
+The service returns a bearer token that must be sent in the Authorization header
+of every subsequent request. Tokens expire after the configured session timeout.
+
+6. Troubleshooting
+Problem: The service fails to start.
+- Check that port 8080 is not used by another process (netstat -ano | findstr 8080).
+- Check that the database is reachable using the db.url value.
+- Review logs/inventory-service.log for errors.
+
+Problem: Users receive HTTP 401 Unauthorized.
+- The bearer token may have expired. Create a new session.
+- Verify the auth.mode setting matches your environment.

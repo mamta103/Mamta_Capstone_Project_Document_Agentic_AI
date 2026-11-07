@@ -1,0 +1,111 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 735 >>
+stream
+BT /F1 11 Tf 15 TL 60 740 Td
+(Acme Inventory Service - Architecture Guide) Tj T*
+() Tj T*
+(1. Architecture Overview) Tj T*
+() Tj T*
+(The Acme Inventory Service follows a three-tier architecture: a REST API layer, a business) Tj T*
+(service layer, and a PostgreSQL persistence layer. Clients communicate over HTTPS using) Tj T*
+(JSON payloads.) Tj T*
+() Tj T*
+(An NGINX reverse proxy terminates TLS and forwards requests to the Inventory API on port) Tj T*
+(8080. A Redis cache stores frequently read product data to reduce database load.) Tj T*
+() Tj T*
+(Stock-change events are published asynchronously to a RabbitMQ message queue and consumed) Tj T*
+(by the Notification Worker, which sends low-stock email alerts.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 815 >>
+stream
+BT /F1 11 Tf 15 TL 60 740 Td
+(2. Components) Tj T*
+() Tj T*
+(API Gateway \(NGINX\): terminates TLS and applies rate limiting of 100 requests per second) Tj T*
+(per client.) Tj T*
+() Tj T*
+(Inventory API: a stateless Java Spring Boot application that exposes the /api/v1 REST) Tj T*
+(endpoints.) Tj T*
+() Tj T*
+(Stock Service: implements business rules such as stock reservations and low-stock) Tj T*
+(thresholds.) Tj T*
+() Tj T*
+(Notification Worker: consumes stock events from RabbitMQ and emails an alert when the) Tj T*
+(stock of a product falls below the configured threshold.) Tj T*
+() Tj T*
+(PostgreSQL 16: the primary data store. Backups run nightly at 02:00 UTC and are retained) Tj T*
+(for 14 days.) Tj T*
+() Tj T*
+(Redis 7: the product cache, with a default time-to-live of 300 seconds.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 1023 >>
+stream
+BT /F1 11 Tf 15 TL 60 740 Td
+(3. Deployment and Scaling) Tj T*
+() Tj T*
+(In production the service is deployed as Docker containers orchestrated by Kubernetes.) Tj T*
+(Each component runs in its own Kubernetes deployment. For single-server installations, see) Tj T*
+(the Installation Guide.) Tj T*
+() Tj T*
+(The Inventory API runs a minimum of 2 replicas. A Horizontal Pod Autoscaler scales it from) Tj T*
+(2 to 10 replicas when average CPU usage exceeds 70 percent.) Tj T*
+() Tj T*
+(Releases use rolling updates with maxUnavailable set to 0, so deployments cause no) Tj T*
+(downtime.) Tj T*
+() Tj T*
+(Configuration is supplied through Kubernetes ConfigMaps, and credentials through) Tj T*
+(Kubernetes Secrets.) Tj T*
+() Tj T*
+(A liveness probe calls GET /api/v1/health every 10 seconds; a pod is restarted after 3) Tj T*
+(failed checks.) Tj T*
+() Tj T*
+(Disaster recovery: restore the latest PostgreSQL backup. The recovery point objective is) Tj T*
+(24 hours and the recovery time objective is 4 hours.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000127 00000 n 
+0000000197 00000 n 
+0000000323 00000 n 
+0000001109 00000 n 
+0000001235 00000 n 
+0000002101 00000 n 
+0000002227 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+3302
+%%EOF

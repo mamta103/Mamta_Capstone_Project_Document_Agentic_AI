@@ -1,0 +1,8 @@
+endpoint,method,description,auth_required
+/api/v1/session,POST,Create a session and return a bearer token,no
+/api/v1/session,DELETE,Log out and invalidate the current token,yes
+/api/v1/products,GET,List all products with stock levels,yes
+/api/v1/products/{id},GET,Get a single product by ID,yes
+/api/v1/products,POST,Create a new product,yes
+/api/v1/products/{id}/stock,PUT,Update the stock level of a product,yes
+/api/v1/health,GET,Return service health status,no

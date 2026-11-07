@@ -1,0 +1,7 @@
+[server]
+# Matches MAX_FILE_MB so oversized files are rejected by the browser before upload.
+maxUploadSize = 20
+
+[client]
+# Hides developer menus such as the Deploy button.
+toolbarMode = "minimal"
